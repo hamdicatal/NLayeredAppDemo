@@ -48,5 +48,17 @@ namespace Northwind.WebFormsUI
         {
 
         }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dgvProduct.DataSource = _productService.GetProductsByCategory(Convert.ToInt32(cmbCategory.SelectedValue));
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
     }
 }
