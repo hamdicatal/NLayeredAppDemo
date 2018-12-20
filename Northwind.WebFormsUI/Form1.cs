@@ -60,5 +60,10 @@ namespace Northwind.WebFormsUI
                 
             }
         }
+
+        private void txtProductName_TextChanged(object sender, EventArgs e)
+        {
+                dgvProduct.DataSource = _productService.GetProductsByName(txtProductName.Text);
+        }
     }
 }
