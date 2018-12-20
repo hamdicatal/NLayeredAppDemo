@@ -1,5 +1,6 @@
 ﻿using Northwind.Business.Abstract;
 using Northwind.Business.Concrete;
+using Northwind.DataAccess.Abstract;
 using Northwind.DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,26 @@ namespace Northwind.WebFormsUI
         {
             InitializeComponent();
             _productService = new ProductManager(new EfProductDal());
+            _categoryService = new CategoryManager(new EfCategoryDal());
         }
 
         private IProductService _productService;
+        private ICategoryService _categoryService;
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+            LoadProducts();
+            LoadCategories();
+        }
+
+        private void LoadCategories()
+        {
+            cmbCategory.DataSource = _categoryService.GetAll();
+            cmbCategory.DisplayMember = "CategoryName";
+            cmbCategory.ValueMember = "CategoryId";
+        }
+
+        private void LoadProducts()
         {
             dgvProduct.DataSource = _productService.GetAll();
         }
