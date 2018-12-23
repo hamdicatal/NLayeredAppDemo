@@ -2,6 +2,7 @@
 using Northwind.Business.Concrete;
 using Northwind.DataAccess.Abstract;
 using Northwind.DataAccess.Concrete.EntityFramework;
+using Northwind.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,10 @@ namespace Northwind.WebFormsUI
             cmbCategory.DataSource = _categoryService.GetAll();
             cmbCategory.DisplayMember = "CategoryName";
             cmbCategory.ValueMember = "CategoryId";
+
+            cmbNewCategory.DataSource = _categoryService.GetAll();
+            cmbNewCategory.DisplayMember = "CategoryName";
+            cmbNewCategory.ValueMember = "CategoryId";
         }
 
         private void LoadProducts()
@@ -64,6 +69,30 @@ namespace Northwind.WebFormsUI
         private void txtProductName_TextChanged(object sender, EventArgs e)
         {
                 dgvProduct.DataSource = _productService.GetProductsByName(txtProductName.Text);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            _productService.Add(new Product
+            {
+                CategoryID = Convert.ToInt32(cmbNewCategory.SelectedValue),
+                ProductName = txtNewProductName.Text,
+                QuantityPerUnit = txtNewQuantityPerUnit.Text,
+                UnitPrice = Convert.ToDecimal(txtNewUnitPrice.Text),
+                UnitsInStock = Convert.ToInt16(txtNewStockAmount.Text)
+            } );
+
+            LoadProducts();
         }
     }
 }
