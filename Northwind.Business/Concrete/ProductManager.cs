@@ -25,6 +25,18 @@ namespace Northwind.Business.Concrete
             _productDal.Add(product);
         }
 
+        public void Delete(Product product)
+        {
+            try
+            {
+                _productDal.Delete(product);
+            }
+            catch
+            {
+                throw new Exception("Delete operation is not successful!");
+            }
+        }
+
         public List<Product> GetAll()
         {
             return _productDal.GetAll();

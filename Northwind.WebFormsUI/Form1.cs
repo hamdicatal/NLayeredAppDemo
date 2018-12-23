@@ -97,6 +97,7 @@ namespace Northwind.WebFormsUI
             } );
 
             LoadProducts();
+            lblLog.Text = "Added succesfully!";
         }
         
         private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -121,6 +122,28 @@ namespace Northwind.WebFormsUI
             });
 
             LoadProducts();
+            lblLog.Text = "Updated succesfully!";
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if(dgvProduct.CurrentRow != null)
+            {
+                try
+                {
+                    _productService.Delete(new Product
+                    {
+                        ProductID = Convert.ToInt32(dgvProduct.CurrentRow.Cells["ProductID"].Value)
+                    });
+
+                    LoadProducts();
+                    lblLog.Text = "Deleted succesfully!";
+                }
+                catch (Exception exception) 
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
         }
     }
 }
