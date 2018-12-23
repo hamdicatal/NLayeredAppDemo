@@ -42,6 +42,10 @@ namespace Northwind.WebFormsUI
             cmbNewCategory.DataSource = _categoryService.GetAll();
             cmbNewCategory.DisplayMember = "CategoryName";
             cmbNewCategory.ValueMember = "CategoryId";
+
+            cmbUpdateCategory.DataSource = _categoryService.GetAll();
+            cmbUpdateCategory.DisplayMember = "CategoryName";
+            cmbUpdateCategory.ValueMember = "CategoryId";
         }
 
         private void LoadProducts()
@@ -91,6 +95,30 @@ namespace Northwind.WebFormsUI
                 UnitPrice = Convert.ToDecimal(txtNewUnitPrice.Text),
                 UnitsInStock = Convert.ToInt16(txtNewStockAmount.Text)
             } );
+
+            LoadProducts();
+        }
+        
+        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtUpdateProductName.Text = dgvProduct.CurrentRow.Cells["ProductName"].Value.ToString();
+            cmbUpdateCategory.SelectedValue = dgvProduct.CurrentRow.Cells["CategoryID"].Value;
+            txtUpdateQuantityPerUnit.Text = dgvProduct.CurrentRow.Cells["QuantityPerUnit"].Value.ToString();
+            txtUpdateStockAmount.Text = dgvProduct.CurrentRow.Cells["UnitsInStock"].Value.ToString();
+            txtUpdateUnitPrice.Text = dgvProduct.CurrentRow.Cells["UnitPrice"].Value.ToString();
+        }
+
+        private void btnUpdate_Click_1(object sender, EventArgs e)
+        {
+            _productService.Update(new Product
+            {
+                ProductID = Convert.ToInt32(dgvProduct.CurrentRow.Cells["ProductID"].Value),
+                CategoryID = Convert.ToInt32(cmbUpdateCategory.SelectedValue),
+                ProductName = txtUpdateProductName.Text,
+                QuantityPerUnit = txtUpdateQuantityPerUnit.Text,
+                UnitPrice = Convert.ToDecimal(txtUpdateUnitPrice.Text),
+                UnitsInStock = Convert.ToInt16(txtUpdateStockAmount.Text)
+            });
 
             LoadProducts();
         }
