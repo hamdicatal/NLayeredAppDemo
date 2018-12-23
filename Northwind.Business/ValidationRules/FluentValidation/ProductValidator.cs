@@ -23,12 +23,12 @@ namespace Northwind.Business.ValidationRules.FluentValidation
             RuleFor(p => p.UnitPrice).GreaterThan(10).When(p => p.CategoryID == 2);
             
             // Create your own control validation method.
-            RuleFor(p => p.ProductName).Must(StartWithA).WithMessage("Product name should be starts with A");
+            //RuleFor(p => p.ProductName).Must(StartWithA).WithMessage("Product name should be starts with A");
         }
 
-        private bool StartWithA(string arg)
-        {
-            return arg.StartsWith("A");
-        }
+        //private bool StartWithA(string arg)
+        //{
+        //    return arg.StartsWith("A");
+        //}
     }
 }

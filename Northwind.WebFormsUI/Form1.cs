@@ -1,5 +1,6 @@
 ﻿using Northwind.Business.Abstract;
 using Northwind.Business.Concrete;
+using Northwind.Business.DependencyResolvers.Ninject;
 using Northwind.DataAccess.Abstract;
 using Northwind.DataAccess.Concrete.EntityFramework;
 using Northwind.Entities.Concrete;
@@ -20,8 +21,13 @@ namespace Northwind.WebFormsUI
         public Form1()
         {
             InitializeComponent();
-            _productService = new ProductManager(new EfProductDal());
-            _categoryService = new CategoryManager(new EfCategoryDal());
+            // IoC Container sayesinde bağımlılığımız sıfıra indi. Aşağıdaki gibi Entity Framework'e bağımlılığımız kalmadı.
+            _productService = InstanceFactory.GetInstance<IProductService>();
+            _categoryService = InstanceFactory.GetInstance<ICategoryService>();
+
+            // Dependency Inversion prensibine ters düştüğü için IoC Container kullanılır.
+            //_productService = new ProductManager(new EfProductDal());
+            //_categoryService = new CategoryManager(new EfCategoryDal());
         }
 
         private IProductService _productService;
