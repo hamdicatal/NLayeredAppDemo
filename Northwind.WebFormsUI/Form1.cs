@@ -87,17 +87,24 @@ namespace Northwind.WebFormsUI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _productService.Add(new Product
+            try
             {
-                CategoryID = Convert.ToInt32(cmbNewCategory.SelectedValue),
-                ProductName = txtNewProductName.Text,
-                QuantityPerUnit = txtNewQuantityPerUnit.Text,
-                UnitPrice = Convert.ToDecimal(txtNewUnitPrice.Text),
-                UnitsInStock = Convert.ToInt16(txtNewStockAmount.Text)
-            } );
+                _productService.Add(new Product
+                {
+                    CategoryID = Convert.ToInt32(cmbNewCategory.SelectedValue),
+                    ProductName = txtNewProductName.Text,
+                    QuantityPerUnit = txtNewQuantityPerUnit.Text,
+                    UnitPrice = Convert.ToDecimal(txtNewUnitPrice.Text),
+                    UnitsInStock = Convert.ToInt16(txtNewStockAmount.Text)
+                });
 
-            LoadProducts();
-            lblLog.Text = "Added succesfully!";
+                LoadProducts();
+                lblLog.Text = "Added succesfully!";
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
         
         private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -111,18 +118,26 @@ namespace Northwind.WebFormsUI
 
         private void btnUpdate_Click_1(object sender, EventArgs e)
         {
-            _productService.Update(new Product
+            try
             {
-                ProductID = Convert.ToInt32(dgvProduct.CurrentRow.Cells["ProductID"].Value),
-                CategoryID = Convert.ToInt32(cmbUpdateCategory.SelectedValue),
-                ProductName = txtUpdateProductName.Text,
-                QuantityPerUnit = txtUpdateQuantityPerUnit.Text,
-                UnitPrice = Convert.ToDecimal(txtUpdateUnitPrice.Text),
-                UnitsInStock = Convert.ToInt16(txtUpdateStockAmount.Text)
-            });
+                _productService.Update(new Product
+                {
+                    ProductID = Convert.ToInt32(dgvProduct.CurrentRow.Cells["ProductID"].Value),
+                    CategoryID = Convert.ToInt32(cmbUpdateCategory.SelectedValue),
+                    ProductName = txtUpdateProductName.Text,
+                    QuantityPerUnit = txtUpdateQuantityPerUnit.Text,
+                    UnitPrice = Convert.ToDecimal(txtUpdateUnitPrice.Text),
+                    UnitsInStock = Convert.ToInt16(txtUpdateStockAmount.Text)
+                });
 
-            LoadProducts();
-            lblLog.Text = "Updated succesfully!";
+                LoadProducts();
+                lblLog.Text = "Updated succesfully!";
+            }
+
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
