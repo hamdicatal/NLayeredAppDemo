@@ -1,5 +1,5 @@
 # NLayeredAppDemo
-.NET multi layered application with Northwind Database
+.NET multi layered application demo with Northwind Database
 
 ## NuGet Packages:
 - Entity Framework (Data access technology)
